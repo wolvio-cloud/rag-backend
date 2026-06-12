@@ -13,7 +13,7 @@ class Settings(BaseSettings):
     chroma_collection_name: str = "contracts"
     max_upload_size_mb: int = 100
     allowed_extensions: set[str] = {".pdf", ".jpg", ".jpeg", ".png"}
-    cors_origins: str = "http://localhost:3000,http://localhost:5173"
+    cors_origins: str = "http://localhost:3000,http://localhost:5173,https://rag-contract-frontend-3437a857a700.herokuapp.com"
     chunk_size: int = 1000
     chunk_overlap: int = 200
     ocr_min_text_length: int = 100
