@@ -19,8 +19,15 @@ async def chat(request: ChatRequest) -> ChatResponse:
     embedding_service = EmbeddingService(settings)
     vector_service = VectorService(settings)
 
+    # Dynamic K Adjustment based on query intent
+    question_lower = request.question.lower()
+    generic_keywords = ["summarize", "summary", "overview", "all documents", "high-level", "high level", "compare", "main topics"]
+    
+    is_generic = any(keyword in question_lower for keyword in generic_keywords)
+    dynamic_k = 10 if is_generic else settings.rag_top_k
+
     query_embedding = embedding_service.embed_query(request.question)
-    results = vector_service.search(query_embedding, settings.rag_top_k)
+    results = vector_service.search(query_embedding, dynamic_k)
 
     documents = results.get("documents", [[]])[0]
     metadatas = results.get("metadatas", [[]])[0]
