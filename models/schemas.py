@@ -47,6 +47,7 @@ class ChatSource(BaseModel):
 class ChatResponse(BaseModel):
     answer: str
     sources: list[ChatSource]
+    followup_questions: list[str] = []
 
 
 class DashboardStats(BaseModel):

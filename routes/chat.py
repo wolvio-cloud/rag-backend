@@ -54,5 +54,5 @@ async def chat(request: ChatRequest) -> ChatResponse:
             seen_sources.add(source_key)
             sources.append(ChatSource(document_name=file_name, page=page_number))
 
-    answer = claude_service.generate_answer(request.question, context_blocks)
-    return ChatResponse(answer=answer, sources=sources)
+    answer, followup_questions = claude_service.generate_answer(request.question, context_blocks)
+    return ChatResponse(answer=answer, sources=sources, followup_questions=followup_questions)
